@@ -120,7 +120,8 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
-require('lspconfig').clangd.setup{}
+--require('lspconfig').clangd.setup{}
+require('clangd_extensions').setup{}
 
 -- [[ Trickaso ]]
 -- To reload some config use ´:luafile %´

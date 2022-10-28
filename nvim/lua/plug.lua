@@ -52,6 +52,10 @@ return require('packer').startup(function(use)
         'neovim/nvim-lspconfig'
     }
 
+    use {
+        'p00f/clangd_extensions.nvim'
+    }
+
     config = {
         package_root = vim.fn.stdpath('config') .. '/site/pack'
     } 
