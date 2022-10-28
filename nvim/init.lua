@@ -21,6 +21,29 @@ vim.cmd([[
   augroup end
 ]])
 
+-- Link highlight group with visual
+vim.cmd([[
+    set updatetime=400
+    hi! link LspReferenceText Visual
+    hi! link LspReferenceRead Visual
+    hi! link LspReferenceWrite Visual
+]])
+
+-- highlight under cursor
+vim.api.nvim_create_autocmd(
+    {"CursorHold", "CursorHoldI"}, 
+    {
+        callback = vim.lsp.buf.document_highlight, 
+    }
+)
+
+vim.api.nvim_create_autocmd(
+    "CursorMoved",
+    {
+        callback = vim.lsp.buf.clear_references, 
+    }
+)
+
 -- PLUGINS: Add this section
 require('nvim-tree').setup{
     respect_buf_cwd = true,
@@ -72,11 +95,6 @@ require('tabline').setup{
 }
 
 require('telescope').setup{
-    pickers = {
-        find_files = {
-            theme = "dropdown",
-        },
-    },
     extensions = {
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
