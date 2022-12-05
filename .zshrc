@@ -114,5 +114,7 @@ source $ZSH/oh-my-zsh.sh
 alias at="alacritty-themes"
 alias la="exa -la"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME/.config"
+alias make_old_kernel="make olddefconfig;KBUILD_BUILD_TIMESTAMP='' make CC="ccache gcc" -j7"
+alias make_kernel="KBUILD_BUILD_TIMESTAMP='' make CC="ccache gcc" -j7"
 
-export PATH=~/.emacs.d/bin/:~/.npm-global/bin:~/.local/bin:$PATH
+export PATH=~/.doom.d/bin:~/.emacs.d/bin/:~/.npm-global/bin:~/.local/bin:$PATH
