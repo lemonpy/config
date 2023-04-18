@@ -1,0 +1,27 @@
+CompileFlags:
+  Add:
+    # substitute with the output from
+    # $ gcc -E -v -x c++ /dev/null
+    - -I/usr/lib/gcc/x86_64-redhat-linux/12/../../../../include/c++/12
+    - -I/usr/lib/gcc/x86_64-redhat-linux/12/../../../../include/c++/12/x86_64-redhat-linux
+    - -I/usr/lib/gcc/x86_64-redhat-linux/12/../../../../include/c++/12/backward
+    - -I/usr/lib/gcc/x86_64-redhat-linux/12/include
+    - -I/usr/local/include
+    - -I/usr/include
+
+    - -Wall
+    - -O2
+    - -Wextra
+    - -Wshadow
+    - -Wconversion
+    - -Wfloat-equal
+    - -Wno-unused-const-variable
+    - -Wno-sign-conversion
+Index:
+  Background: Skip
+
+Diagnostics:
+  ClangTidy:
+    Add: [ cppcoreguidelines*, bugprone*, google* ]
+  UnusedIncludes: Strict
+
