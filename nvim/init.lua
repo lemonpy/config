@@ -502,5 +502,14 @@ cmp.setup {
   },
 }
 
+require('toggle_lsp_diagnostics').init(vim.diagnostic.config())
+
+vim.keymap.set('n', '<leader>ts', require('toggle_lsp_diagnostics').toggle_signs, { desc = "[T]oggle [s]igns" })
+vim.keymap.set('n', '<leader>tt', require('toggle_lsp_diagnostics').toggle_virtual_text, { desc = "[T]oggle virtual [t]ext" })
+vim.keymap.set('n', '<leader>td', require('toggle_lsp_diagnostics').toggle_diagnostics, { desc = "[T]oggle [d]iagnostics" })
+-- vim.keymap.set('n', '<leader>tldd' toggle-lsp-diag-default)
+-- vim.keymap.set('n', '<leader>tldo' toggle-lsp-diag-off)
+-- vim.keymap.set('n', '<leader>tldf' toggle-lsp-diag-on)
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
