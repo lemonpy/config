@@ -41,6 +41,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Unless you are still migrating, remove the deprecated commands from v1.x
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -173,7 +176,28 @@ require('lazy').setup({
   },
 
 
-  'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+  'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim',
+
+  {
+    's1n7ax/nvim-window-picker',
+    name = 'window-picker',
+    event = 'VeryLazy',
+    version = '2.*',
+    config = function()
+        require'window-picker'.setup()
+    end,
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      "s1n7ax/nvim-window-picker",
+    },
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -516,3 +540,24 @@ vim.keymap.set('n', '<leader>td', require('toggle_lsp_diagnostics').toggle_diagn
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+require("window-picker").setup({
+  autoselect_one = true,
+  include_current = false,
+  filter_rules = {
+    -- filter using buffer options
+    bo = {
+      -- if the file type is one of following, the window will be ignored
+      filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+
+      -- if the buffer type is one of following, the window will be ignored
+      buftype = { 'terminal', "quickfix" },
+    },
+  },
+  other_win_hl_color = '#e35e4f',
+})
+
+require("neo-tree").setup({
+  close_if_last_window = true,
+  filesystem = { follow_current_file = true },
+})
+
