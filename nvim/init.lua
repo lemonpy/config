@@ -561,3 +561,9 @@ require("neo-tree").setup({
   filesystem = { follow_current_file = true },
 })
 
+vim.api.nvim_create_autocmd("TabNew",
+  {
+    group = vim.api.nvim_create_augroup("NeotreeOnNewTab", { clear = true }),
+    command = "Neotree",
+  }
+)
