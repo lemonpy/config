@@ -86,7 +86,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        opts = {}
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -139,11 +143,8 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-      indent_blankline_show_end_of_line = true
-    },
+    main = 'ibl',
+    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -182,7 +183,7 @@ require('lazy').setup({
     's1n7ax/nvim-window-picker',
     name = 'window-picker',
     event = 'VeryLazy',
-    version = '2.*',
+    -- = '2.*',
     config = function()
         require'window-picker'.setup()
     end,
@@ -198,6 +199,9 @@ require('lazy').setup({
       "s1n7ax/nvim-window-picker",
     },
   },
+
+  "HiPhish/rainbow-delimiters.nvim",
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -445,7 +449,17 @@ end
 local servers = {
   clangd = {},
   -- gopls = {},
-  pyright = {},
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          extraPaths = {
+            "../eas-sdk/**"
+          }
+        }
+      }
+    }
+  },
   rust_analyzer = {},
   -- tsserver = {},
 
@@ -556,6 +570,18 @@ require("window-picker").setup({
   other_win_hl_color = '#e35e4f',
 })
 
+-- Go to tab by number
+vim.keymap.set('n', '<leader>1', '1gt')
+vim.keymap.set('n', '<leader>2', '2gt')
+vim.keymap.set('n', '<leader>3', '3gt')
+vim.keymap.set('n', '<leader>4', '4gt')
+vim.keymap.set('n', '<leader>5', '5gt')
+vim.keymap.set('n', '<leader>6', '6gt')
+vim.keymap.set('n', '<leader>7', '7gt')
+vim.keymap.set('n', '<leader>8', '8gt')
+vim.keymap.set('n', '<leader>9', '9gt')
+vim.keymap.set('n', '<leader>0', ':tablast<CR>', {})
+
 require("neo-tree").setup({
   close_if_last_window = true,
   filesystem = { follow_current_file = true },
@@ -567,3 +593,5 @@ vim.api.nvim_create_autocmd("TabNew",
     command = "Neotree",
   }
 )
+require('lspconfig').pyright.setup {
+}
